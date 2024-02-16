@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs'
 import { errorHandler } from '../utils/error.js'
 
 
-export const singup = async (req, res, next) => {
+export const signup = async (req, res, next) => {
     const { userName, email, password } = req.body
 
     if (!userName || !email || !password || userName === "" || email === "" || password === "") {
