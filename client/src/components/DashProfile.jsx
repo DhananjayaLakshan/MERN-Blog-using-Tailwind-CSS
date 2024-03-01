@@ -100,7 +100,7 @@ export default function DashProfile() {
       setUpdateUserError("No changes made");
       return;
     }
-
+    //
     if (imageFileUploading) {
       setUpdateUserError("Please wait for image to upload");
       return;
