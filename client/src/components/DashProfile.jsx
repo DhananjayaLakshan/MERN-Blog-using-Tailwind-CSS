@@ -89,8 +89,6 @@ export default function DashProfile() {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  console.log(formData);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setUpdateUserError(null);
@@ -100,7 +98,7 @@ export default function DashProfile() {
       setUpdateUserError("No changes made");
       return;
     }
-    //
+
     if (imageFileUploading) {
       setUpdateUserError("Please wait for image to upload");
       return;

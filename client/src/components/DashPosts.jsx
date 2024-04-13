@@ -95,8 +95,8 @@ export default function DashPosts() {
               </Table.HeadCell>
             </Table.Head>
 
-            {userPosts.map((post) => (
-              <Table.Body className="divide-y">
+            {userPosts.map((post, index) => (
+              <Table.Body key={index} className="divide-y">
                 <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                   <Table.Cell>
                     {new Date(post.updatedAt).toLocaleDateString()}
@@ -137,7 +137,7 @@ export default function DashPosts() {
 
                   <Table.Cell>
                     <Link
-                      to={`/post/${post._id}`}
+                      to={`/update-post/${post._id}`}
                       className="text-teal-500 hover:underline"
                     >
                       <span>Edit</span>
@@ -174,7 +174,7 @@ export default function DashPosts() {
             </h3>
             <div className="flex justify-center gap-4">
               <Button color="failure" onClick={handleDeletePost}>
-                Yes, I'm sure
+                Yes, {`I'm`} sure
               </Button>
               <Button color="gray" onClick={() => setShowModel(false)}>
                 No, cancel
