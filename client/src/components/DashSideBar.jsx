@@ -64,6 +64,18 @@ export default function DashSideBar() {
             </Link>
           )}
 
+          {currentUser.isAdmin && (
+            <Link to="/dashboard?tab=users">
+              <Sidebar.Item
+                active={tab === "users"}
+                icon={HiDocumentText}
+                as="div"
+              >
+                Users
+              </Sidebar.Item>
+            </Link>
+          )}
+
           <Sidebar.Item
             onClick={handleSignout}
             icon={HiArrowSmRight}
