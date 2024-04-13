@@ -9,7 +9,7 @@ export default function DashUser() {
   const [users, setUsers] = useState([]);
   const [showMore, setShowMore] = useState(true);
   const [showModel, setShowModel] = useState(false);
-  //   const [userIdToDelete, setUserIdToDelete] = useState("");
+  const [userIdToDelete, setUserIdToDelete] = useState("");
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -49,33 +49,27 @@ export default function DashUser() {
     }
   };
 
-  //   const handleDeleteUser = async () => {
-  //     setShowModel(false);
-  //     try {
-  //       const res = await fetch(
-  //         `/api/user/deleteuser/${userIdToDelete}/${currentUser._id}`,
-  //         {
-  //           method: "DELETE",
-  //         }
-  //       );
+  const handleDeleteUser = async () => {
+    setShowModel(false);
+    try {
+      const res = await fetch(`/api/user/delete/${userIdToDelete}`, {
+        method: "DELETE",
+      });
 
-  //       // Check if the response is ok
-  //       if (!res.ok) {
-  //         // If not ok, throw an error
-  //         throw new Error(
-  //           `Failed to delete post: ${res.status} ${res.statusText}`
-  //         );
-  //       }
+      const data = await res.json();
 
-  //       // If response is ok, update userPosts
-  //       setUserPosts((prev) =>
-  //         prev.filter((post) => post._id !== postIdToDelete)
-  //       );
-  //     } catch (error) {
-  //       console.error("Error deleting post:", error.message);
-  //       // Handle error appropriately, e.g., show a notification to the user
-  //     }
-  //   };
+      if (res.ok) {
+        setUsers((prev) => prev.filter((user) => user._id !== userIdToDelete));
+        setShowModel(false);
+      }
+
+      if (!res.ok) {
+        console.log(data.message);
+      }
+    } catch (error) {
+      console.error("Error deleting post:", error.message);
+    }
+  };
 
   return (
     <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
@@ -122,7 +116,7 @@ export default function DashUser() {
                     <span
                       onClick={() => {
                         setShowModel(true);
-                        // setUserIdToDelete(user._id);
+                        setUserIdToDelete(user._id);
                       }}
                       className="font-medium text-red-500 hover:underline cursor-pointer"
                     >
@@ -159,10 +153,7 @@ export default function DashUser() {
               Are you sure you want to delete this user?
             </h3>
             <div className="flex justify-center gap-4">
-              <Button
-                color="failure"
-                //   onClick={handleDeleteUser}
-              >
+              <Button color="failure" onClick={handleDeleteUser}>
                 Yes, {`I'm`} sure
               </Button>
               <Button color="gray" onClick={() => setShowModel(false)}>
